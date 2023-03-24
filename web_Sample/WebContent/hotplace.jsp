@@ -26,7 +26,7 @@
 		                    <div id="map" style="width: 100%; height: 600px"></div>
 		                </div>
 		                <div class="col-6">
-		                    <form action="${root}/test" method="POST">
+		                    <form action="${root}/hotplace?action=insertPlace" method="POST">
 		                        <div class="mb-3">
 		                            <label for="place-image" class="form-label text-danger">
 		                                <span class="d-flex align-items-center">

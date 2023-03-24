@@ -1,4 +1,4 @@
-package com.ssafy.sample.util;
+package com.gumi.enjoytrip.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
