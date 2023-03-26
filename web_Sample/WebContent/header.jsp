@@ -26,7 +26,7 @@
             <a class="nav-link text-white" href="tourplan.jsp">나의여행계획</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="hotplace.jsp">핫플레이스</a>
+            <a class="nav-link text-white" href="./hotplace/list.jsp">핫플레이스</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"
