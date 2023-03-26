@@ -26,7 +26,8 @@
 		                    <div id="map" style="width: 100%; height: 600px"></div>
 		                </div>
 		                <div class="col-6">
-		                    <form action="${root}/hotplace?action=write&pgno=1&key=&word=" method="POST" name="hotplaceform">
+		                
+		                    <form action="" method="POST" name="hotplaceModifyForm">
 		                        <div class="mb-3">
 		                            <label for="place-image" class="form-label text-danger">
 		                                <span class="d-flex align-items-center">
@@ -40,41 +41,46 @@
 		                            <input type="file" class="form-control" id="place-image" name="image" accept="image/*"
 		                                   onchange="markMap()"/>
 		                        </div>
+		                        
 		                        <div class="mb-3">
 		                            <label for="place-name" class="form-label">핫플 이름</label>
-		                            <input type="text" class="form-control" id="place-name" name="place-name" size="15"/>
+		                            <input type="text" class="form-control" id="title" name="title" value= "${modifyHotPlace.title}" size="15" />
 		                        </div>
 		                        <div class="mb-3">
 		                            <label for="date" class="form-label">다녀온 날짜</label>
-		                            <input type="date" class="form-control" id="date" name="date"/>
+		                            <input type="date" class="form-control" id="date" name="date" value="${modifyHotPlace.date}"/>
 		                        </div>
 		                        <div class="mb-3">
 		                            <label for="type-select" class="form-label">장소 유형</label>
-		                            <select class="form-select" id="type-select" name="type">
+		                            <select class="form-select" id="type" name="type">
 		                                <option selected disabled>관광지 유형</option>
-		                                <option value="12">관광지</option>
-		                                <option value="14">문화시설</option>
-		                                <option value="15">행사/공연/축제</option>
-		                                <option value="25">여행코스</option>
-		                                <option value="28">레포츠</option>
-		                                <option value="32">숙박</option>
-		                                <option value="38">쇼핑</option>
-		                                <option value="39">음식점</option>
+		                                <option value="12" ${modifyHotPlace.placetype == 12 ? 'selected="selected"' : '' }>관광지</option>
+		                                <option value="14" ${modifyHotPlace.placetype == 14 ? 'selected="selected"' : '' }>문화시설</option>
+		                                <option value="15" ${modifyHotPlace.placetype == 15 ? 'selected="selected"' : '' }>행사/공연/축제</option>
+		                                <option value="25" ${modifyHotPlace.placetype == 25 ? 'selected="selected"' : '' }>여행코스</option>
+		                                <option  value="28" ${modifyHotPlace.placetype == 28 ? 'selected="selected"' : '' }>레포츠</option>
+		                                <option  value="32" ${modifyHotPlace.placetype == 32 ? 'selected="selected"' : '' }>숙박</option>
+		                                <option  value="38" ${modifyHotPlace.placetype == 38 ? 'selected="selected"' : '' }>쇼핑</option>
+		                                <option  value="39" ${modifyHotPlace.placetype == 39 ? 'selected="selected"' : '' }>음식점</option>
 		                            </select>
 		                        </div>
 		                        
-		                        <input type="hidden" name="latitude" value="">
-		                        <input type="hidden" name="longitude" value="">
+		                        <input type="hidden" id = "latitude" name="latitude" value="${modifyHotPlace.latitude}">
+		                        <input type="hidden" id = "longitude" name="longitude" value="${modifyHotPlace.longitude}">
 		                        
 		                        
 		                        <div class="mb-3">
 		                            <label for="content" class="form-label">상세설명</label>
-		                            <textarea id="content" name="content" class="form-control"></textarea>
+		                            <textarea id="content" name="content" class="form-control">${modifyHotPlace.content}</textarea>
 		                        </div>
+		                        
+		                        <input type="hidden" id="modifyHotPlace-id" name="modifyHotPlace-id" value="${modifyHotPlace.id}">
 		                        <div>
-		                        	<button type="submit" id="register-button" class="btn btn-info text-white container-fluid">
-		                        		등록
+		                        	<button type="submit" id="register-button" class="btn btn-success container-fluid"  
+		                        	formaction="${root}/hotplace?action=modify&pgno=1&key=&word=" >
+		                        		수정 완료 
 		                        	</button>
+		                        
 		                        </div>
 		                    </form>
 		                </div>
@@ -91,16 +97,27 @@
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d07dd8988b0ead77351bbfd00f03228f"></script>
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+
 <script>
+	var lat = ${modifyHotPlace.latitude};
+	var lot = ${modifyHotPlace.longitude};
+	
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            center: new kakao.maps.LatLng(lat, lot), // 지도의 중심좌표
             level: 3 // 지도의 확대 레벨
         };
 
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
-
+    
+    const markerPosition = new kakao.maps.LatLng(lat, lot);
+    const marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    marker.setMap(map);
+    map.setCenter(markerPosition);
+    
     function markMap() {
         const placeImage = document.getElementById('place-image');
         const imageFile = placeImage.files[0];
@@ -129,14 +146,15 @@
                 marker.setMap(map);
                 map.setCenter(markerPosition);
                 
-                document.hotplaceform.latitude.value=latFinal;
-                document.hotplaceform.longitude.value=lngFinal;
+                document.hotplaceModifyForm.latitude.value=latFinal;
+                document.hotplaceModifyForm.longitude.value=lngFinal;
             })
         }
         if (imageFile) {
             reader.readAsDataURL(imageFile);
         }
     }
+    
 </script>
 </body>
 </html>

@@ -7,15 +7,15 @@ import java.util.Map;
 import com.gumi.enjoytrip.hotplace.dto.HotPlaceDTO;
 
 public interface HotPlaceDao {
-	void writeHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
+	public int writeHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
 
-	List<HotPlaceDTO> listHotPlace(Map<String, Object> param) throws Exception;
+	public List<HotPlaceDTO> listHotPlace(Map<String, Object> param) throws Exception;
 
-	int getTotalHotPlaceCount(Map<String, Object> param) throws SQLException;
+	public int getTotalHotPlaceCount(Map<String, Object> param) throws SQLException;
 
-	HotPlaceDTO getHotPlace(int id) throws Exception;
+	public HotPlaceDTO getHotPlace(int id) throws Exception;
 
-	void modifyHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
+	public int modifyHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
 
-	void deleteHotPlace(int id) throws Exception;
+	public int deleteHotPlace(int id) throws Exception;
 }

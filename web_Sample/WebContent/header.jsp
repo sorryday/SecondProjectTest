@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
 <header>
   <nav class="navbar navbar-expand-lg bg-info bg-opacity-75" data-bs-theme="dark">
     <div class="container-fluid">
@@ -17,6 +19,9 @@
               aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      
+      	<c:set var="root" value="${pageContext.request.contextPath}"/>
+      
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
@@ -26,7 +31,7 @@
             <a class="nav-link text-white" href="tourplan.jsp">나의여행계획</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="./hotplace/list.jsp">핫플레이스</a>
+            <a class="nav-link text-white" href="${root}/hotplace?action=list&pgno=1&key=&word=">핫플레이스</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink"

@@ -9,15 +9,15 @@ public class HotPlaceDTO {
 	private int placetype;
 	private Date date;
 	private String user_id;
-	private float latitude;
-	private float longitude;
+	private String latitude;
+	private String longitude;
 
 	public HotPlaceDTO() {
 		super();
 	}
 
-	public HotPlaceDTO(int id, String title, String content, int placetype, Date date, String user_id, float latitude,
-			float longitude) {
+	public HotPlaceDTO(int id, String title, String content, int placetype, Date date, String user_id, String latitude,
+			String longitude) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -77,19 +77,19 @@ public class HotPlaceDTO {
 		this.user_id = user_id;
 	}
 
-	public float getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(String latitude) {
 		this.latitude = latitude;
 	}
 
-	public float getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
 

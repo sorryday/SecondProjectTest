@@ -7,15 +7,15 @@ import com.gumi.enjoytrip.hotplace.dto.HotPlaceDTO;
 import com.gumi.enjoytrip.util.PageNavigation;
 
 public interface HotPlaceService {
-	void writeHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
+	public int writeHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
 
-	List<HotPlaceDTO> listHotPlace(Map<String, String> map) throws Exception;
+	public List<HotPlaceDTO> listHotPlace(Map<String, String> map) throws Exception;
 
-	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
+	public PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 
-	HotPlaceDTO getHotPlace(int id) throws Exception;
+	public HotPlaceDTO getHotPlace(int id) throws Exception;
 
-	void modifyHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
+	public int modifyHotPlace(HotPlaceDTO hotplaceDTO) throws Exception;
 
-	void deleteHotPlace(int id) throws Exception;
+	public int deleteHotPlace(int id) throws Exception;
 }
