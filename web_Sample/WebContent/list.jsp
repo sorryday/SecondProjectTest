@@ -15,7 +15,7 @@
     <title>EnjoyTrip</title>
     
     <style>
-    	.container {
+    	.row {
     		margin: 0 auto;
     	}
     	
@@ -28,11 +28,9 @@
 <body>
 
 <div class="main">
-	<div class="container mt-4">
+	<div class="container">
 	  <div class="row">
-	  
-	  
-		  <h2>
+		  <h2 style="font-weight: bold;">
 	      	핫플레이스
 	      </h2>
 	      
@@ -53,7 +51,7 @@
 	                  <option value="user_id">작성자</option>
 	                </select>
 	                <div class="input-group input-group-sm">
-	                  <input type="text" name="word" id="word" class="form-control" placeholder="검색어..." />
+	                  <input type="text" name="word" id="word" class="form-control" value="${word}" placeholder="검색어..." />
 	                  <button id="btn-search" class="btn btn-dark" type="button">검색</button>
 	                </div>
 	              </form>
@@ -70,11 +68,11 @@
 			  <div class="card-body d-flex justify-content-between m-1 ">
 			    <h5 class="card-title align-self-center">${hotplace.title}</h5>
 			    
-			    <form id="form-param" name="form-param" method="POST" action="${root}/hotplace?action=view&pgno=&key=&word=">
+			    <form id="formparam" name="formparam" method="POST" action="${root}/hotplace?action=view&pgno=${navigation.currentPage}&key=${key}&word=${word}">
 			      <input type="hidden" id="hotplace-id" name="hotplace-id" value="${hotplace.id}">
 			      <button type="submit" class="boardbtn btn btn-primary align-self-center">
 			      <i class="bi bi-three-dots"></i></button>
-			  </form>
+			  	</form>
 			    
 			    
 			  </div>
@@ -101,19 +99,21 @@
        <div>
       	<span style="float:right; margin-bottom:20px"><button type="button" class="btn btn-primary" onclick="location.href='${root}/hotplace.jsp'">핫플 자랑하기</button></span><br>
       </div>
-      
 	</div>
 </div>
 
 <script>
 // 페이징 처리 
+
+var pageNum = 0;
+
 let pages = document.querySelectorAll(".page-link");
 pages.forEach(function (page) {
   page.addEventListener("click", function () {
     document.querySelector("#p-action").value = "list";
- 	  document.querySelector("#p-pgno").value = this.parentNode.getAttribute("data-pg");
- 	  document.querySelector("#p-key").value = "${param.key}";
- 	  document.querySelector("#p-word").value = "${param.word}";
+ 	document.querySelector("#p-pgno").value = this.parentNode.getAttribute("data-pg");
+ 	document.querySelector("#p-key").value = "${param.key}";
+ 	document.querySelector("#p-word").value = "${param.word}";
     document.querySelector("#form-page").submit();
   });
 });
@@ -124,6 +124,7 @@ document.querySelector("#btn-search").addEventListener("click", function () {
     form.setAttribute("action", "${root}/hotplace");
     form.submit();
 });
+
 </script>
 <c:import url="./footer.jsp"></c:import>
 </body>

@@ -25,10 +25,5 @@
     </plugins>
   </build>
   <dependencies>
-  	<dependency>
-  		<groupId>board1_servlet</groupId>
-  		<artifactId>board1_servlet</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
   </dependencies>
 </project>

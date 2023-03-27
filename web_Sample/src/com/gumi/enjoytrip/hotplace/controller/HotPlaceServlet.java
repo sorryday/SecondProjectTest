@@ -49,8 +49,6 @@ public class HotPlaceServlet extends HttpServlet {
 		word = ParameterCheck.nullToBlank(request.getParameter("word"));
 		queryStrig = "?pgno=" + pgno + "&key=" + key + "&word=" + URLEncoder.encode(word, "utf-8");
 		
-		System.out.println(pgno);
-
 		String path = "";
 		if ("list".equals(action)) {
 			path = list(request, response);
@@ -92,9 +90,11 @@ public class HotPlaceServlet extends HttpServlet {
 			
 			hotPlaceDto.setLatitude(request.getParameter("latitude"));
 			hotPlaceDto.setLongitude(request.getParameter("longitude"));
+			int n = 0;
 			
 			try {
-				int n = HotPlaceServiceImpl.getInstance().writeHotPlace(hotPlaceDto);
+			
+				n = HotPlaceServiceImpl.getInstance().writeHotPlace(hotPlaceDto);
 				
 				if (n > 0) {
 					return "/hotplace?action=list";
@@ -136,6 +136,9 @@ public class HotPlaceServlet extends HttpServlet {
 				
 				PageNavigation pageNavigation = HotPlaceServiceImpl.getInstance().makePageNavigation(map);
 				request.setAttribute("navigation", pageNavigation);
+				
+				request.setAttribute("key", key);
+				request.setAttribute("word", word);
 
 				return "list.jsp" + queryStrig;
 			} catch (Exception e) {
@@ -156,7 +159,18 @@ public class HotPlaceServlet extends HttpServlet {
 				HotPlaceDTO hotplaceDto = hotplaceService.getHotPlace(id);
 //				hotplaceService.updateHit(id);
 				request.setAttribute("selectedHotPlace", hotplaceDto);
-
+				
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("pgno", pgno + "");
+				map.put("key", key);
+				map.put("word", word);
+				
+				PageNavigation pageNavigation = HotPlaceServiceImpl.getInstance().makePageNavigation(map);
+				request.setAttribute("navigation", pageNavigation);
+				
+				request.setAttribute("key", key);
+				request.setAttribute("word", word);
+				
 				return "/view.jsp" + queryStrig;
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -74,7 +74,7 @@
 		                        	</button>
 		                        	
 		                        	<button type="submit" id="register-button" class="btn btn-info text-white container-fluid" style="margin-top: 20px"
-		                        	formaction="${root}/hotplace?action=list&pgno=1&key=&word=" >
+		                        	formaction="${root}/hotplace?action=list&pgno=${navigation.currentPage}&key=${key}&word=${word}">
 		                        			목록
 		                        	</button>
 		                        </div>
